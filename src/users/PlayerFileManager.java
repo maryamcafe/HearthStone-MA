@@ -35,7 +35,7 @@ public class PlayerFileManager {
     private static void writePlayerToFile(Player player) throws IOException {
         String playerJson = gson.toJson(player);
         //we'll save the player in a file with it's name = the player's username
-        Writer writer = new FileWriter(player.getUser().getUsername() + "json");
+        Writer writer = new FileWriter(player.getUser().getUsername() + ".json");
         writer.write(playerJson);
         writer.close();
     }
