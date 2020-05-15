@@ -41,10 +41,8 @@ public class LogIn extends BasicCLI implements State {
         if (isNew != null) {
             if (isNew) {
                 signUp();
-                System.out.println(signUpSuccessful);
             } else {
                 signIn();
-                System.out.println(signInSuccessful);
             }
             player = playerInitializer(user);
 //            menu();
@@ -110,7 +108,7 @@ public class LogIn extends BasicCLI implements State {
                 //Otherwise the program will exit
             } else {
                 isSuccessful = true;
-//                System.out.println(signUpSuccessful);
+                System.out.println(signUpSuccessful);
                 user = new User(username, password);
                 addUserToFile(user);
                 //logger.info("A new User just created.");
@@ -135,6 +133,7 @@ public class LogIn extends BasicCLI implements State {
                 //Otherwise the program will exit
             } else {
                 isSuccessful = true;
+                System.out.println(signInSuccessful);
                 user = findUser(username);
             }
         } catch (Exception e) {// the username doesn't exist:
