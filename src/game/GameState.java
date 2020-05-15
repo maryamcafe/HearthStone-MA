@@ -20,8 +20,7 @@ public class GameState implements State {
 
     @Override
     public void run(List<Boolean> running) {
-        gameCLI = new GameCLI(this);
-        gameCLI.menu();
+        gameCLI = new GameCLI(this, running);
     }
 
     public void viewCurrentHero() {

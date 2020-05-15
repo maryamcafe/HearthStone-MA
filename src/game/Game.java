@@ -33,6 +33,7 @@ public class Game  {
         //update everything and render everything
         while(running.get(0)){
             states.get(i++).run(running);
+            System.out.println("state passed.");
             if (!running.get(1)){
                 i = 0; //returns to the first state: LogIn
             }

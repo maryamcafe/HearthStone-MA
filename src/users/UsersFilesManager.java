@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class UsersFilesManager {
 
-    final static String UsersListFile = "D:\\Sali\\elmi\\sharif\\Computer\\AP\\tahvil\\friday\\MaryamAraghi\\java\\src\\UsersList.json";
+    final static String UsersListFile = "src/UsersList.json";
     static final String wrongUsernameMsg = "Username is not right";
     private static HashMap<String, User> usersList = new HashMap<>();
     private static Gson gson = new Gson();
@@ -24,7 +24,7 @@ public class UsersFilesManager {
     }
 
     public static void update() throws IOException {
-        Reader reader = new FileReader(new File("D:\\Sali\\elmi\\sharif\\Computer\\AP\\tahvil\\friday\\MaryamAraghi\\java\\src\\UsersList.json"));
+        Reader reader = new FileReader(new File(UsersListFile));
         Type type = new TypeToken<HashMap<String, User>>() {
         }.getType();
         usersList = gson.fromJson(reader, type);

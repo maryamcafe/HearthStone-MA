@@ -21,7 +21,6 @@ public class LogIn extends BasicCLI implements State {
     private int i = 0;
     private User user = null;
     private Player player;
-    private List<Boolean> running;
 
     public LogIn() {
     }
@@ -39,26 +38,25 @@ public class LogIn extends BasicCLI implements State {
         this.running = running;
         running.add(1, true);
         Boolean isNew = isNewUser();
-        while (isNew != null) {
+        if (isNew != null) {
             if (isNew) {
                 signUp();
+                System.out.println(signUpSuccessful);
             } else {
                 signIn();
+                System.out.println(signInSuccessful);
             }
             player = playerInitializer(user);
-            menu();
+//            menu();
         }
         scanner.close();
     }
 
 
     private void menu() {
+        System.out.println(LoggedInMenu);
         String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
-            case "help":
-                System.out.println(LoggedInMenu);
-                menu();
-                break;
             case "\n":
                 break;
             case "exit":
@@ -68,8 +66,6 @@ public class LogIn extends BasicCLI implements State {
                 exitAll();
                 break;
             default:
-                System.out.println(wrongInput);
-                menu();
                 break;
         }
     }
@@ -77,7 +73,7 @@ public class LogIn extends BasicCLI implements State {
 
     private Boolean isNewUser() {
         System.out.println("Already have an account? [y/n]");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "y":
                 return false;
@@ -101,9 +97,9 @@ public class LogIn extends BasicCLI implements State {
     //SignUp
     private void signUp() {
         System.out.println("Set your Username and Password: [username password] ");
-        username = scanner.next();
+        username = scanner.nextLine();
         System.out.println("username is: " + username);
-        password = scanner.next();
+        password = scanner.nextLine();
         System.out.println("password is: " + password);
         try {
             if (isUsernameTaken(username)) {
@@ -114,7 +110,7 @@ public class LogIn extends BasicCLI implements State {
                 //Otherwise the program will exit
             } else {
                 isSuccessful = true;
-                System.out.println(signUpSuccessful);
+//                System.out.println(signUpSuccessful);
                 user = new User(username, password);
                 addUserToFile(user);
                 //logger.info("A new User just created.");
@@ -128,8 +124,8 @@ public class LogIn extends BasicCLI implements State {
     //SignIn
     private void signIn() {
         System.out.println("Enter your username and password: [username password] ");
-        username = scanner.next();
-        password = scanner.next();
+        username = scanner.nextLine();
+        password = scanner.nextLine();
         try {
             if (!isPasswordCorrect(username.trim(), password.trim())) {
                 System.out.println(wrongPassword);
@@ -139,7 +135,6 @@ public class LogIn extends BasicCLI implements State {
                 //Otherwise the program will exit
             } else {
                 isSuccessful = true;
-                System.out.println(signInSuccessful);
                 user = findUser(username);
             }
         } catch (Exception e) {// the username doesn't exist:
@@ -154,7 +149,7 @@ public class LogIn extends BasicCLI implements State {
 
     private boolean tryAgain() {
         System.out.println(tryAgainMsg);
-        String msg = scanner.next();
+        String msg = scanner.nextLine();
         switch (msg.trim().toLowerCase()) {
             case "exit":
                 exit();

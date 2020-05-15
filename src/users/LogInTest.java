@@ -27,6 +27,8 @@ public class LogInTest {
 //        System.out.println("isUsernameTaken: " + isUsernameTaken("user222"));
         Game game = new Game();
         game.run();
+//        Reader reader = new FileReader(new File("src/UsersList.json"));
+
 //        LogIn login = new LogIn();
 //        login.newLogIn();
 //        if(tryAgain()){

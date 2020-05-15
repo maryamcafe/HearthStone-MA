@@ -2,20 +2,23 @@ package CLI;
 
 import game.GameState;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static game.GameConstants.*;
 import static users.LogInConstants.wrongInput;
 
 public class GameCLI extends BasicCLI {
+    private final Scanner scanner;
+    private GameState gameState;
 
-    private static Scanner scanner = new Scanner(System.in);
-
-    private GameState gameState = null;
-
-    public GameCLI(GameState gameState) {
+    public GameCLI(GameState gameState, List<Boolean> running) {
         super();
+        BasicCLI.running = running;
         this.gameState = gameState;
+        scanner = new Scanner(System.in);
+        menu();
+        scanner.close();
     }
 
 //These menus are so that each menu:
@@ -23,8 +26,11 @@ public class GameCLI extends BasicCLI {
 //Step2: does some action with respect to input,
 //Step3: leads to another menu (back or foeward)
 
-    public void menu() {
-        String input = scanner.nextLine();
+    private void menu() {
+        scanner.reset();
+//        System.out.println("Main Game Menu, enter \"help\" for help");
+        scanner.nextLine();
+        String input =  scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "collections":
                 System.out.println(collectionMenuHelp);
@@ -45,7 +51,6 @@ public class GameCLI extends BasicCLI {
                 break;
             default:
                 System.out.println(wrongInput);
-                menu();
                 break;
         }
     }
@@ -80,10 +85,10 @@ public class GameCLI extends BasicCLI {
 
     private void heroSelectionMenu() {
         System.out.println("Select Hero");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "select":
-                String heroName = scanner.next();
+                String heroName = scanner.nextLine();
                 gameState.setHero(heroName);
                 CardMenu();
                 break;
@@ -134,10 +139,10 @@ public class GameCLI extends BasicCLI {
 
     private void addCardMenu() {
         System.out.println("Edit Your Deck");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "remove":
-                String cardName = scanner.next();
+                String cardName = scanner.nextLine();
                 gameState.addToDeck(cardName);
                 gameState.removeFromNotInDeck(cardName);
                 CardMenu();
@@ -159,10 +164,10 @@ public class GameCLI extends BasicCLI {
 
     private void removeCardMenu() {
         System.out.println("Edit Your Deck");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "remove":
-                String cardName = scanner.next();
+                String cardName = scanner.nextLine();
                 gameState.removeFromDeck(cardName);
                 gameState.addToNotInDeck(cardName);
                 CardMenu();
@@ -214,10 +219,10 @@ public class GameCLI extends BasicCLI {
 
     private void buyMenu() {
         System.out.println("Buy Card");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "buy":
-                String cardName = scanner.next();
+                String cardName = scanner.nextLine();
                 gameState.buyStore(cardName);
                 store();
                 break;
@@ -242,10 +247,10 @@ public class GameCLI extends BasicCLI {
 
     private void sellMenu() {
         System.out.println("Sell Card");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         switch (input.trim().toLowerCase()) {
             case "sell":
-                String cardName = scanner.next();
+                String cardName = scanner.nextLine();
                 gameState.sellStore(cardName);
                 store();
                 break;
